@@ -31,16 +31,22 @@ docker build -t my-exam-custom-image .
 
 ```
 
-- Ejecutra el siguiente comando para correr la imagen de Docker con el Reverse Proxy y el contexto por defecto la carpeeta del proyecto:
+- Ejecutra el siguiente comando para correr la imagen de Docker con el Reverse Proxy y el contexto por defecto la carpeta del proyecto:
 
     - En Linux/Mac
         ```
         docker run -p 8080:8080 -v $(pwd):/usr/share/nginx/html my-exam-custom-image
+
         ```
 
     - En Windows
         ```
         docker run -p 8080:8080 -v %cd%:/usr/share/nginx/html my-exam-custom-image
+        ```
+
+        Usado: 
+        ```
+        docker run -p 8080:8080 -v "/c/Users/joelg/OneDrive - Escuela Politécnica Nacional/Semesters/SextoSemestre/AplicacionesWeb/IIBim/Evaluaciones/Joel/isdw613-final-exam:/usr/share/nginx/html" my-exam-custom-image
         ```
 
 Se puede acceder a la siguiente URL para acceder al servidor NGINX que se encuentra ejecutando con el comando anterior:
@@ -60,10 +66,13 @@ Automáticamente cualquier cambio que se haga en el directorio o en archivos den
 
 ## Rubrica para la calificación
 
-| Aspecto a Implementar      | % de Peso |
-| ----------- | ----------- |
-| Listado de Estudiantes      | 25%       |
-| Creación de Estudiantes   | 25%        |
-| Uso de método HTTP apropiado   | 20%        |
-| Control de Errores en la Invocación  | 10%        |
-| Implementación de Interface Responsive  | 20%        |
+| Aspecto a Implementar                  | % de Peso |
+| -------------------------------------- | --------- |
+| Listado de Estudiantes                 | 25%       |
+| Creación de Estudiantes                | 25%       |
+| Uso de método HTTP apropiado           | 20%       |
+| Control de Errores en la Invocación    | 10%       |
+| Implementación de Interface Responsive | 20%       |
+
+# Tuve problema con el CORS y usé docker
+![EvidenciaDocker](assets/image.png)

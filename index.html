@@ -1,12 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>Registrar Estudiantes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
+
 <body>
-    <h1>Test HTML</h1>    
+    <div class="container">
+        <h1 class="my-4">Registrar Estudiantes</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="id">Id</label>
+                        <input type="text" class="form-control" id="id" placeholder="Identificador" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="Dirección" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="registrarEstudiante()">Registrar</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h2>Lista de Estudiantes</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-estudiantes"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const estudiantes = [
+            { id: '1', nombre: 'Joe Doe 1', direccion: 'Address 1', telefono: '1564' },
+            { id: '2', nombre: 'Joe Doe 2', direccion: 'Address 2', telefono: '1690' },
+            { id: '3', nombre: 'Joe Doe 3', direccion: 'Address 3', telefono: '2035' },
+        ];
+
+        function registrarEstudiante() {
+            const id = document.getElementById('id').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+
+            if (!id || !nombre || !direccion || !telefono) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+
+            const telefonoRegex = /^\d{4}$/;
+            if (!telefonoRegex.test(telefono)) {
+                alert('Por favor, ingrese un número de teléfono válido de 4 dígitos');
+                return;
+            }
+
+            const estudiante = {
+                id,
+                nombre,
+                direccion,
+                telefono
+            };
+
+            estudiantes.push(estudiante);
+
+            //Tuve problema con el CORS
+
+            // fetch('http://localhost:8080/dev/students', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(estudiante)
+            // })
+            //     .then(response => {
+            //         if (response.ok) {
+            //             alert('Estudiante registrado correctamente');
+            //             cargarEstudiantes();
+            //         } else {
+            //             alert('Error al registrar el estudiante');
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error:', error);
+            //         alert('Ocurrió un error al registrar el estudiante');
+            //     });
+
+
+            cargarEstudiantes();
+
+            document.getElementById('id').value = '';
+            document.getElementById('nombre').value = '';
+            document.getElementById('direccion').value = '';
+            document.getElementById('telefono').value = '';
+
+        }
+
+        function cargarEstudiantes() {
+
+            //Tuve problema con el CORS
+
+            // fetch('http://localhost:8080/dev/students', {
+            //     mode: 'no-cors'
+            // })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         const tabla = document.getElementById('tabla-estudiantes');
+            //         tabla.innerHTML = '';
+
+            //         data.forEach(estudiante => {
+            //             const fila = tabla.insertRow(-1);
+            //             const celdaId = fila.insertCell(0);
+            //             const celdaNombre = fila.insertCell(1);
+            //             const celdaDireccion = fila.insertCell(2);
+            //             const celdaTelefono = fila.insertCell(3);
+            //             celdaId.textContent = estudiante.id;
+            //             celdaNombre.textContent = estudiante.nombre;
+            //             celdaDireccion.textContent = estudiante.direccion;
+            //             celdaTelefono.textContent = estudiante.telefono;
+            //         });
+            //     })
+            //     .catch(error => {
+            //         console.error('Error:', error);
+            //         alert('Ocurrió un error al cargar los estudiantes');
+            //     });
+
+
+            const tabla = document.getElementById('tabla-estudiantes');
+            tabla.innerHTML = '';
+
+            estudiantes.forEach(estudiante => {
+                const fila = tabla.insertRow(-1);
+                const celdaId = fila.insertCell(0);
+                const celdaNombre = fila.insertCell(1);
+                const celdaDireccion = fila.insertCell(2);
+                const celdaTelefono = fila.insertCell(3);
+                celdaId.textContent = estudiante.id;
+                celdaNombre.textContent = estudiante.nombre;
+                celdaDireccion.textContent = estudiante.direccion;
+                celdaTelefono.textContent = estudiante.telefono;
+            });
+        }
+
+        window.onload = cargarEstudiantes;
+    </script>
 </body>
+
 </html>
